@@ -5,10 +5,10 @@
 Queue::Queue(int initialSize) {
   arrayQueue = new int[initialSize];
   front = 0;
-  back = 0;
-  capacity = 10;
+  back =0;
+  capacity = initialSize;
   sizeOfarray = 0;
-  doubleCapacity = 20;
+//  doubleCapacity = 20;
 }
 
 Queue::~Queue() {
@@ -16,7 +16,8 @@ Queue::~Queue() {
 }
 
 void Queue::enqueue(int value) {
-   if (capacity == sizeOfarray)  {
+   
+  if (sizeOfarray == capacity)  {
      doubleCapacity=capacity*2;
     
     int* theQueue = new int[doubleCapacity];  // create new stack twice as big
@@ -33,7 +34,7 @@ void Queue::enqueue(int value) {
  
   // assert(back != capacity);
    
-/*    if (isQuarter()) {  
+    if (isQuarter()) {  
     
    int* newQueueh = new int[capacity/2];  // create new queue half as big
     for (int i =1; i<=capacity; i++) {
@@ -45,14 +46,11 @@ void Queue::enqueue(int value) {
    newQueueh = arrayQueue;
 
 
- } */
-
-  //  if (!isFull()){
+ }  
     back= (back+1)%capacity;
-   // back++;
     arrayQueue[back] = value;
     sizeOfarray++;
-  // }
+   
 
  }
 
@@ -60,8 +58,7 @@ void Queue::enqueue(int value) {
 int Queue::dequeue() {
    if (!isEmpty()){
    int result = arrayQueue[front+1];
-   front = (front)%capacity;
-  // front++;
+   front = (front+1)%capacity; 
    sizeOfarray--;   
    return result;
  }
