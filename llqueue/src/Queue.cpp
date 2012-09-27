@@ -18,23 +18,31 @@ Queue::~Queue() {
 }
 
 void Queue::enqueue(int y) {
+  
    Node* curr = new Node(y);
-   curr->setNext(back);
-   back = curr;
+   if (front == 0) {
+      front = curr;
+      back = curr; 
+   }
+   else {
+      back->setNext(curr);
+      back = curr;
+   }
    numOfelements++;
-   back++;
-
+  // back++;
+  
 
 }
 
 int Queue::dequeue() {
-  Node* curr2 = front;
-  assert (numOfelements !=0);
+  Node* curr2 =front;
+  
+  assert (numOfelements !=0 && front !=0);
   int result = front->getValue();
   
   front = curr2->getNext();
   delete curr2;
-  front++;
+ // front++;
   return result;
 
 }

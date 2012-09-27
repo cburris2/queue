@@ -4,7 +4,7 @@
 
 Node::Node(int x) {
  next = 0;
- value = 0; 
+ value = x; 
  }
 
 Node::~Node() {
