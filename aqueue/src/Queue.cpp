@@ -5,10 +5,10 @@
 Queue::Queue(int initialSize) {
   arrayQueue = new int[initialSize];
   front = 0;
-  back =0;
-  capacity = initialSize;
-  sizeOfarray = 0;
-//  doubleCapacity = 20;
+  back = 0;
+  capacity = 10;
+  numElements = 0;
+
 }
 
 Queue::~Queue() {
@@ -16,104 +16,115 @@ Queue::~Queue() {
 }
 
 void Queue::enqueue(int value) {
-   
-  if (sizeOfarray == capacity)  {
-     doubleCapacity=capacity*2;
-    
-    int* theQueue = new int[doubleCapacity];  // create new stack twice as big
-    for (int i=0; i<=capacity; i++) {
+ 
+
+ // std::cout << "Inside enqueue:before if" << std::endl;
+   if (numElements == capacity)  {
      
+ /*    if (front > back) {  // deals with special case 
+         
+       int* theQueue = new int[doubleCapacity]; 
+      for (int i=front; i<=capacity; i++) {
+         theQueue[i] =arrayQueue[i];
+        } 
+      for (int i=back; i<front; i++) {
+         theQueue[i] =arrayQueue[i];
+        }      
+          
+        delete[] arrayQueue;
+        arrayQueue = theQueue;       
+        capacity = doubleCapacity ; 
+        front = 0;
+        back = numElements;
+} */
+// if (front < back) {
+    doubleCapacity=capacity*2;
+    std::cout << "Inside enqueue: in else before for" << std::endl;
+   int* theQueue = new int[doubleCapacity];  // create new stack twice as big
+    for (int i=0; i<=capacity; i++) {
       theQueue[i] = arrayQueue[i];
      }
-   
-   delete[] arrayQueue;
-   arrayQueue = theQueue;  
-   capacity = doubleCapacity;
- 
-   }
- 
-  // assert(back != capacity);
-   
-    if (isQuarter()) {  
-    
-   int* newQueueh = new int[capacity/2];  // create new queue half as big
-    for (int i =1; i<=capacity; i++) {
      
+     back = numElements;  
+     //delete[] arrayQueue;
+     arrayQueue = theQueue;        
+     capacity = doubleCapacity;     
+  // } 
+    // assert(back != capacity);
+/*   
+  std::cout << "Enqueue:before Quarter " << capacity << std::endl;
+   if (isQuarter()) {  
+     quarterCapacity=capacity/4;
+     std::cout << "Enqueue:before Quarter " << capacity << std::endl;
+    int* newQueueh = new int[quarterCapacity+1];  // create new queue half as big
+   for (int i =1; i<=capacity; i++) {
       newQueueh[i] = arrayQueue[i];
      }
-   capacity = doubleCapacity;
-   delete [] arrayQueue;
-   newQueueh = arrayQueue;
-
-
+     capacity = quarterCapacity+1;
+     delete [] arrayQueue;
+     newQueueh = arrayQueue;
  }  
-    back= (back+1)%capacity;
-    arrayQueue[back] = value;
-    sizeOfarray++;
-   
-
- }
-
-
-int Queue::dequeue() {
-   if (!isEmpty()){
-   int result = arrayQueue[front+1];
-   front = (front+1)%capacity; 
-   sizeOfarray--;   
-   return result;
- }
- else {
-  
- std::cout << "Method Invalid: Queue is Empty" << std::endl;
- 
-  }
-  
+   */   
+}
+ // std::cout << "Inside enque:before back is set " << std::endl;
+  std::cout << "back is = " << back <<"cap is " << capacity << std::endl;
+      arrayQueue[back] = value;
+      back = (back+1)% capacity;
+      numElements++;   
+  std::cout << "Inside enque:after back is set"<< back << std::endl;
 
 }
 
-int Queue::peek() {
- if (!isEmpty()){
+int Queue::dequeue(){
+
+ assert(!isEmpty());  
+ // int result = arrayQueue[front+1];
+  int result = arrayQueue[front];
   
-  return arrayQueue[back-1];
-  }
-  else{
-  std::cout << "Queue is Empty" << std::endl;
-  }
+     front = (front+1)% capacity;
+     	 
+     numElements--;   
+  
+
+//  std::cout << "after dequeue front= "<< front << std::endl;
+     return result;
+
+//  std::cout << "after dequeue front= "<< front << std::endl;
 }
 
 int Queue::size() {
   if (isEmpty()) {
-  return 0;
+    return 0;
  }
   else {
-   return sizeOfarray;
+    return numElements;
  } 
 }
 
 bool Queue::isEmpty(){
- if (front == back){
-  return true;
+  if (numElements == 0){
+     return true;
  }
  else {
-  return false;
+     return false;
   }
 }
 bool Queue::isFull(){
- if (capacity == sizeOfarray){
+  if (capacity == numElements){
 
-  return true;
+    return true;
 
 }
  else {
-  return false;
+    return false;
   }
 }
 bool Queue::isQuarter(){
- if(capacity/4 == back){
-  return true;
+  if((float)(numElements/capacity) < .25) {
+     return true;
   }
  else {
-  return false;
+     return false;
   }
 }
 

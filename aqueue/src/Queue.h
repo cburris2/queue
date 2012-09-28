@@ -7,7 +7,8 @@ class Queue {
   int front;
   int back;
   int capacity;
-  int sizeOfarray;
+  int numElements;
+  int quarterCapacity;
   int doubleCapacity;
   bool isQuarter();
   bool isFull();
