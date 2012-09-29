@@ -21,8 +21,8 @@ int main() {
   arrayQueue->enqueue(95);
     
   arrayQueue->enqueue(475);
-  cout << arrayQueue->dequeue() << endl;
-  cout << arrayQueue->dequeue() << endl;
+//  cout << arrayQueue->dequeue() << endl;
+//  cout << arrayQueue->dequeue() << endl;
 
   
 

@@ -18,11 +18,11 @@ Queue::~Queue() {
 void Queue::enqueue(int value) {
  
 
- // std::cout << "Inside enqueue:before if" << std::endl;
+ 
    if (numElements == capacity)  {
      
- /*    if (front > back) {  // deals with special case 
-         
+ /*    if (front > back) {  // deals with special case is off by 1 element
+                                // when enqueue * 8 dequeue* 2 & enqueue x4 
        int* theQueue = new int[doubleCapacity]; 
       for (int i=front; i<=capacity; i++) {
          theQueue[i] =arrayQueue[i];
@@ -39,14 +39,14 @@ void Queue::enqueue(int value) {
 } */
 // if (front < back) {
     doubleCapacity=capacity*2;
-    std::cout << "Inside enqueue: in else before for" << std::endl;
+   //std::cout << "Inside enqueue: in else before for" << std::endl;
    int* theQueue = new int[doubleCapacity];  // create new stack twice as big
     for (int i=0; i<=capacity; i++) {
       theQueue[i] = arrayQueue[i];
      }
      
      back = numElements;  
-     //delete[] arrayQueue;
+     delete[] arrayQueue;
      arrayQueue = theQueue;        
      capacity = doubleCapacity;     
   // } 
@@ -67,18 +67,18 @@ void Queue::enqueue(int value) {
    */   
 }
  // std::cout << "Inside enque:before back is set " << std::endl;
-  std::cout << "back is = " << back <<"cap is " << capacity << std::endl;
+ // std::cout << "back is = " << back <<"cap is " << capacity << std::endl;
       arrayQueue[back] = value;
       back = (back+1)% capacity;
       numElements++;   
-  std::cout << "Inside enque:after back is set"<< back << std::endl;
+ // std::cout << "Inside enque:after back is set"<< back << std::endl;
 
 }
 
 int Queue::dequeue(){
 
- assert(!isEmpty());  
- // int result = arrayQueue[front+1];
+ assert(isEmpty() == false);  
+ 
   int result = arrayQueue[front];
   
      front = (front+1)% capacity;

@@ -37,19 +37,19 @@ void Queue::enqueue(int y) {
 int Queue::dequeue() {
   Node* curr2 =front;
   
-  assert (numOfelements !=0 && front !=0);
+  assert (numOfelements !=0);
   int result = front->getValue();
   
   front = curr2->getNext();
   delete curr2;
- // front++;
+  numOfelements--;
   return result;
 
 }
 
 int Queue::size() {
   if (isEmpty()) {
-  return 0;
+   return 0;
  }
   else {
    return numOfelements;
